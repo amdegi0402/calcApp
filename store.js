@@ -1,0 +1,38 @@
+import { createStore, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+
+//ステート初期化
+const initial = {
+    message: 'START',
+    count: 0
+}
+
+//レデューサー
+function counterReducer(state = initial, action){
+    switch(action.type){
+        case 'INCREMENT':
+            return{
+                message: 'INCREMENT',
+                count: state.count + 1
+            };
+        case 'DECREMENT':
+            return{
+                message: state.count -1
+            };
+        case 'RESET':
+            return{
+                message: 'RESET',
+                count: initial.count
+            };
+        default:
+            return state;
+    }
+}
+
+//initStore関数(redux-store.jsで必要)
+//createStoreを関数の形にしてエクスポートしているだけのもの
+export function initStore(state = initial){
+    return createStore(counterReducer, state,
+        applyMiddleware(thunkMiddleware))
+        //thumkMiddlewareというミドルウェアを組み込むことでNext.jsでReduxの機能がうまく動くようにしている
+}

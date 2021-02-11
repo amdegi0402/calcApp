@@ -14,7 +14,7 @@ function counterReducer(state = initial, action){
         //計算実行
        case 'ENTER':
            let data2 = state.data.slice();
-           let s = action.cvalue;
+           let s = action.value;
            data2.unshift(s);
            let num = s.replace(/[^0-9]/g, "");
            let number2 = state.number/slice();
